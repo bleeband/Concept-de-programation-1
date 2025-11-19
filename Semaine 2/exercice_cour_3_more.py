@@ -8,11 +8,11 @@
 
 # Expression 1
 resultat1 = 3 + 4 * 2 ** 3 // 2 - 1
-    # Étape 1: 3 // 2 = 1
-    # Étape 2: 2 ** 1 = 2
-    # Étape 3: 4 * 2 = 8
-    # Étape 4: 3 + 8 = 11
-    # Étape 5: 11 - 1 = 10
+    # Étape 1: 2 ** 3 = 8
+    # Étape 2: 4 * 8 = 32
+    # Étape 3: 32 // 2 = 16
+    # Étape 4: 3 + 16 = 19
+    # Étape 5: 19 - 1 = 18
       
 
 # Expression 2
@@ -25,16 +25,23 @@ resultat2 = a % b + c * (a // b) ** c
     # Étape 5: 2 + 2 = 4
     
 # Expression 3
+
 x, y, z = 8, 3, 2
+
 resultat3 = (x > y and y < z) or (x == y * z)
+
     # Étape 1: 8 > 3 = True
     # Étape 2: 3 < 2 = False
     # Étape 3: 3 * 2 = 6
     # Étape 4: 8 == 6 = False
-    # Étape 5: True and False = False """
+    # Étape 5: True and False = False 
+    # 
+print()
+print(f"(8 > 3 and 3 < 2) or (8 == 3 * 2) = {resultat3}") """
 
 
-""" # ----------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------
 # Exercice 2 : Réécriture avec parenthèses
 # Réécris ces expressions en ajoutant toutes les parenthèses implicites :
 
@@ -48,7 +55,7 @@ resultat3 = (x > y and y < z) or (x == y * z)
 
 # Expression originale
     # expr3 = p ** q ** r * s
-    # expr3 = ((p ** q) ** r) * s """
+    # expr3 = ((p ** q) ** r) * s
 
 
 """ # ----------------------------------------------------------------------------------
@@ -93,7 +100,7 @@ print(resultat) """
 
 
 
-# ----------------------------------------------------------------------------------
+""" # ----------------------------------------------------------------------------------
 # Exercice 5 : Programme de conversion universelle
 # Crée un programme qui détecte automatiquement le type d'entrée et le convertit :
 
@@ -101,20 +108,18 @@ def detecter_et_convertir(valeur):
     # À compléter : doit détecter si c'est un int, float, bool ou string
     # et retourner la valeur convertie dans tous les types possibles
 
-    for x in range(len(test_values)):
-
-        print("Valeur originale :", test_values[x])
-        y = test_values[x]
-        print(type(test_values[x]))
+    for x in test_values:
+        print(x,type(x))
+        print()
     pass
 
 
 # Tests
-test_values = ["123", "45.67", "True", "hello", "0"]
+test_values = [123, 45.67, True, "hello", 0]
 
 
 print()
-detecter_et_convertir(test_values)
+detecter_et_convertir(test_values) """
 
 
 
