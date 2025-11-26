@@ -133,46 +133,47 @@ d = x
 #--------------------------------------------
 #   RECHERCHE DANS UNE LISTE
 
-a = [1, 2, 3, "a", "b", [1,2]]
-b = a.index("a",2 ,5)
-print(b)
+# a = [1, 2, 3, "a", "b", [1,2]]
+# b = a.index("a",2 ,5)
+# print(b)
 
-if "a" in a[2:5]:
-    b = a.index("a",2 ,5)
-    print("dans la condition du if", b)
+# if "a" in a[2:5]:
+#     b = a.index("a",2 ,5)
+#     print("dans la condition du if", b)
 
-print([1,2] in a)
+# print([1,2] in a)
 
 
 #--------------------------------------------
 #  TRIER DES LISTES
 
-a = [1, 2, 3, 88, 23, 44]
-n = ["une", "liste", "2", "True", "0.2" , "15"]
+# a = [1, 2, 3, 88, 23, 44]
+# n = ["une", "liste", "2", "True", "0.2" , "15"]
 
-a.sort()
-n.sort()
-print(a)
-print(n)
+# a.sort()
+# n.sort()
+# print(a)
+# print(n)
 
 
 #----------------------------------------------
 #   JOIN
 
-liste = ["une ", "fabuleuse ", "soirée! "]
-print("".join(liste))
+# liste = ["une ", "fabuleuse ", "soirée! "]
+# print("".join(liste))
 
 
 #--------------------------------------------
 #   REVERSE
 
-a = [1, 2, 3, 88, 23, 44]
-a.reverse
-print(a)
+# a = [1, 2, 3, 88, 23, 44]
+# a.reverse
+# print(a)
 
 
 #--------------------------------------------
 #   SORTED  ( SHALLOW COPY )
 
-a = [1, 2, 3, 88, 23, 44]
-print(sorted(a))
+# a = [1, 2, 3, 88, 23, 44]
+# print(sorted(a))
+
