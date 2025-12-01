@@ -46,9 +46,6 @@ for livre in biblio:
         print("•", livre["titre"], "de", livre["auteur"], "est", livre["statut"])
 print()
 
-""" for livre in biblio:
-    if livre["statut"] == "disponible":
-        print(f"- {livre['titre']} par {livre['auteur']} est {livre['statut']}") """
 #-----------------------------------------------------------------------------------------
 # # 3. Empruntez un livre (changez son statut)
 
@@ -69,12 +66,6 @@ for livre in biblio:
     if livre["statut"].lower() == "emprunté":
         print("•", livre["titre"], "de", livre["auteur"], "est", livre["statut"])
 print()
-
-""" livre_a_emprunter = "1984"
-for livre in biblio:
-    if livre["titre"] == livre_a_emprunter and livre["statut"] == "disponible":
-        livre['statut'] == "emprunté"
-        print("•", livre["titre"], "de", livre["auteur"], "est", livre["statut"]) """
 
 #-----------------------------------------------------------------------------------------
 # # 4. Retournez un livre
@@ -231,11 +222,6 @@ for etudiant in etudiants_notes:
     etudiant["moyenne"] = round(sum(etudiant["notes"]) / len(etudiant["notes"]), 2)
 # print(etudiants_notes)
 
-""" for etudiant, notes in etudiants_notes.item():
-    moyenne = sum(notes) / len(notes)
-    moyenne[etudiant] = moyenne
-    print(f"{etudiant}: {moyenne:.1f}/20") """
-
 # 4. Trouver le meilleur étudiant
 print("------------------------------------------")
 print("\n=== CLASSEMENT ===")
@@ -317,7 +303,6 @@ nouveau_profil = {
     "notes": nouvelles_notes
 }
 
-etudiants_notes[etudiant] 
 etudiants_notes.append(nouveau_profil)
 print("------------------------------------------")
 print(f"Après ajout de {nouvel_etudiant}:")
