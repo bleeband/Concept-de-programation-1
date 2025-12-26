@@ -5,6 +5,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SAVE_FILE = os.path.join(BASE_DIR, "savegame.json")
 tour_actuel = 1
+
 class Animal():
 
     def __init__(self, nom, age, sexe, espece, position=(0,0)) -> None:
@@ -55,30 +56,30 @@ class Animal():
     
     def manger(self):
         if not self.est_vivant:
-            print(f"{self.nom} ne peut plus manger")
+            print(f"{self.nom} ne peut plus manger\n")
             return False
         
         self.energie = min(100, self.energie + 10)
-        print(f"{self.nom} mange bien et gagne +10 d'énergie  -->  Énergie actuelle : {self.energie}")
+        print(f"{self.nom} mange bien et gagne +10 d'énergie  -->  Énergie actuelle : {self.energie}\n")
         self.verifier_vie()
         return True
         
     def dormir(self):
         if not self.est_vivant:
-            print(f"{self.nom} ne peut plus dormir")
+            print(f"{self.nom} ne peut plus dormir\n")
             return
 
-        # Dormir recharge 20 d'énergie, mais coûte 10 d'énergie (pour l'action)
         self.energie = min(100, self.energie  + 20)
-        print(f"{self.nom} dort paisiblement et gagne +20 d'énergie  -->  Énergie actuelle : {self.energie}")
+        print(f"{self.nom} dort paisiblement et gagne +20 d'énergie  -->  Énergie actuelle : {self.energie}\n")
         self.verifier_vie()
 
     def soigner(self):
         if not self.est_vivant:
-            print(f"{self.nom} ne peut plus être soigné")
+            print(f"{self.nom} ne peut plus être soigné\n")
             return
+        
         self.sante = min(100, self.sante + 30)
-        print(f"{self.nom} a été soigné et gagne +30 de santé  -->  Santé actuelle : {self.sante}")
+        print(f"{self.nom} a été soigné et gagne +30 de santé  -->  Santé actuelle : {self.sante}\n")
 
     def vieillir(self):
         if not self.est_vivant:
@@ -94,7 +95,7 @@ class Animal():
         # Malus vieillesse
         if self.age > 10:
             self.sante -= 2
-            print(f"⚠️ {self.nom} commence à être vieux...")
+            print(f"⚠️ {self.nom} commence à être vieux...\n")
 
         self.sante = max(0, self.sante)
 
@@ -111,7 +112,7 @@ class Animal():
         if self.sante <= 0:
             self.est_vivant = False
             self.sante = 0
-            print(f"{self.nom} est mort...")
+            print(f"{self.nom} est mort...\n")
 
     def se_faire_ami(self, animal):
         if animal in self.ennemis:
@@ -120,7 +121,7 @@ class Animal():
         if animal != self and animal not in self.amis:
             self.amis.append(animal)
             animal.amis.append(self)
-            print(f"{self.nom} et {animal.nom} sont maintenant des amis !")
+            print(f"{self.nom} et {animal.nom} sont maintenant des amis !\n")
 
     def se_faire_ennemi(self, animal):
         if animal in self.amis:
@@ -129,7 +130,7 @@ class Animal():
         if animal != self and animal not in self.ennemis:
             self.ennemis.append(animal)
             animal.ennemis.append(self)
-            print(f"{self.nom} et {animal.nom} sont maintenant des ennemis !")
+            print(f"{self.nom} et {animal.nom} sont maintenant des ennemis !\n")
 
     def interagir(self, animal):
         if not self.est_vivant or not animal.est_vivant:
@@ -151,7 +152,7 @@ class Animal():
         data = interactions[animal.espece]
 
         if animal in self.amis:
-            print(f"{self.nom} joue avec {animal.nom} {data['jeu']} et ils sont heureux !")
+            print(f"{self.nom} joue avec {animal.nom} {data['jeu']} et ils sont heureux !\n")
             bonus = self.niveau * 0.5
             self.bonheur = min(100, self.bonheur + 10 + bonus)
             animal.bonheur = min(100, animal.bonheur + 10 + bonus)
@@ -159,7 +160,7 @@ class Animal():
             animal.energie -= 5
 
         elif animal in self.ennemis:
-            print(f"{self.nom} se chicane avec {animal.nom} et il se fait {data['attaque']} !")
+            print(f"{self.nom} se chicane avec {animal.nom} et il se fait {data['attaque']} !\n")
             self.bonheur -= 10
             animal.bonheur -= 10
             self.sante -= 5
@@ -187,10 +188,10 @@ class Animal():
             return None
         
         if autre_animal in self.ennemis:
-            print(f"{self.nom} et {autre_animal.nom} ne peuvent pas se reproduire, ce sont des ennemis !")
+            print(f"{self.nom} et {autre_animal.nom} ne peuvent pas se reproduire, ce sont des ennemis !\n")
             return None
 
-        nom_bebe = f"{self.nom[:3]}{autre_animal.nom[:3]}"
+        nom_bebe = f"{self.nom[:2]}{autre_animal.nom[:2]}"
         sexe_bebe = 'M' if random.random() > 0.5 else 'F'
 
         return Animal(nom_bebe, 0, sexe_bebe, self.espece)
@@ -201,17 +202,17 @@ class Animal():
             self.experience -= 100
             self.niveau += 1
             self.points_competence += 5
-            print(f"{self.nom} atteint le niveau {self.niveau} et gagne +5 points de compétence")
+            print(f"{self.nom} atteint le niveau {self.niveau} et gagne +5 points de compétence\n")
 
     def entrainer(self, competence, heures=1):
         if competence in self.competences:
             gain = heures * 5
             self.competences[competence] = min(100, self.competences[competence] + gain)
             self.gagner_experience(heures * 10)
-            print(f"{self.nom} s'est entraîné en {competence} et gagne +{gain}")
+            print(f"{self.nom} s'est entraîné en {competence} et gagne +{gain}\n")
         
         else:
-            print(f"Compétence {competence} inconnue")
+            print(f"Compétence {competence} inconnue\n")
 
     def efficacite(self, competence):
         if competence not in self.competences:
@@ -237,18 +238,18 @@ class Animal():
         distance = abs(x - self.position[0]) + abs(y - self.position[1])
         if distance <= self.vitesse:
             self.position = (x, y)
-            print(f"{self.nom} se déplace vers ({x}, {y})")
+            print(f"{self.nom} se déplace vers ({x}, {y})\n")
             return True
         else:
-            print(f"{self.nom} ne peut pas aller aussi loin! Vitesse max: {self.vitesse}")
+            print(f"{self.nom} ne peut pas aller aussi loin! Vitesse max: {self.vitesse}\n")
             return False
 
     def marquer_territoire(self):
         if self.position not in self.territoire:
             self.territoire.append(self.position)
-            print(f"{self.nom} a marqué son territoire en {self.position}")
+            print(f"{self.nom} a marqué son territoire en {self.position}\n")
         else:
-            print(f"{self.nom} avait déjà marqué cette position")
+            print(f"{self.nom} avait déjà marqué cette position\n")
 
     def est_dans_son_territoire(self, x=None, y=None):
         if x is None or y is None:
@@ -272,10 +273,10 @@ class Animal():
         ennemis_noms = [e.nom for e in self.ennemis]
         
         return (
-            f"nom: {self.nom}, age: {self.age}, sexe: {self.sexe}\n"
-            f"Amis: {amis_noms}, Ennemis: {ennemis_noms}\n"
-            f"XP: {self.experience}/100, Points compétence: {self.points_competence}\n"
-            f"Compétences: {', '.join(competences_str)}"
+            f"nom : {self.nom}, age : {self.age} ans, sexe : {self.sexe}\n"
+            f"Amis : {amis_noms}, Ennemis : {ennemis_noms}\n"
+            f"XP : {self.experience}/100, Points compétence : {self.points_competence}\n"
+            f"Compétences : {', '.join(competences_str)}"
         )
  
     def __eq__(self, value) -> bool:
@@ -291,7 +292,7 @@ class Animal():
             self.age = age
 
     def set_position(self, position):
-        if position >= 0:
+        if all(p >= 0 for p in position):
             self.position = position
 
 class Chien(Animal):
@@ -314,12 +315,12 @@ class Chien(Animal):
         return data
 
     def aboyer(self):
-        print(f"{self.nom} aboie : Woof ! Woof !")
+        print(f"{self.nom} aboie : Woof ! Woof !\n")
 
     def reproduire(self, autre_animal):
         bebe = super().reproduire(autre_animal)
         if bebe:
-            race_bebe = f"{self.race[:3]}{getattr(autre_animal, 'race', '')[:3]}"
+            race_bebe = f"{self.race[:2]}{getattr(autre_animal, 'race', '')[:2]}"
             return Chien(bebe.nom, 0, bebe.sexe, race_bebe)
         return None
 
@@ -344,12 +345,12 @@ class Chat(Animal):
         return data
 
     def miauler(self):
-        print(f"{self.nom} miaule : Miaaouuu !")
+        print(f"{self.nom} miaule : Miaaouuu !\n")
 
     def reproduire(self, autre_animal):
         bebe = super().reproduire(autre_animal)
         if bebe:
-            couleur_bebe = f"{self.couleur[:3]}{getattr(autre_animal, 'couleur', '')[:3]}"
+            couleur_bebe = f"{self.couleur[:2]}{getattr(autre_animal, 'couleur', '')[:2]}"
             return Chat(bebe.nom, 0, bebe.sexe, couleur_bebe)
         return None
 
@@ -360,9 +361,6 @@ class Chat(Animal):
 class Compagnon:
     def __init__(self, proprietaire) -> None:
         self.proprietaire = proprietaire
-
-    def jouer(self):
-        print(f"Je joue avec {self.proprietaire}")
 
 class AnimalDomestique(Animal, Compagnon):
     domes_img = """
@@ -376,8 +374,11 @@ class AnimalDomestique(Animal, Compagnon):
 
     def __str__(self):
         parent_str = Animal.__str__(self)
-        return f"{parent_str}, propriétaire: {self.proprietaire}"
-
+        return f"{parent_str}, propriétaire : {self.proprietaire}"
+    
+    def jouer(self):
+        print(f"{self.nom} joue avec {self.proprietaire}\n")
+        
 def afficher_map(animaux, largeur=10, hauteur=10):
     """Affiche une carte ASCII avec animaux sur les cases vertes"""
     
@@ -413,7 +414,7 @@ def afficher_map(animaux, largeur=10, hauteur=10):
             color_grid[y][x] = f"{HERBE}{couleur}"  # superposer lettre sur fond vert
 
     # Afficher la grille
-    print("\n=== Carte du terrain ===")
+    print("\n     === Carte du terrain ===")
     
     # Numéros de colonnes
     print("   ", end="")
@@ -442,7 +443,7 @@ def tour_par_tour(animaux, tours_pour_vieillir=3):
         if not animal.est_vivant:
             continue
 
-        print(f"\n➡️ Tour de {animal.nom} ({animal.espece})")
+        print(f"\n➡️    Tour de {animal.nom} ({animal.espece})")
         menu_animal(animal, animaux)
 
     # Fatigue et stress naturel
@@ -450,11 +451,11 @@ def tour_par_tour(animaux, tours_pour_vieillir=3):
         if animal.est_vivant:
             animal.energie = max(0, animal.energie - 2)   # fatigue naturelle
             animal.bonheur = max(0, animal.bonheur - 1)   # stress léger
-            print(f"{animal.nom} perd un peu d'énergie et de bonheur → Énergie: {animal.energie}, Bonheur: {animal.bonheur}")
+            print(f"{animal.nom} perd un peu d'énergie et de bonheur → Énergie: {animal.energie}, Bonheur: {animal.bonheur}\n")
 
     # Vieillissement tous les X tours
     if tour_actuel % tours_pour_vieillir == 0:
-        print("\n⏳ Les animaux vieillissent...")
+        print("\n⏳ Les animaux vieillissent...\n")
         for animal in animaux:
             animal.vieillir()
 
@@ -462,23 +463,17 @@ def tour_par_tour(animaux, tours_pour_vieillir=3):
 
 def menu_principal(animaux):
     if animaux is None:
-        animaux = [
-            un_chien,
-            un_chien2,
-            un_chien3,
-            un_chat,
-            un_chat2,
-            un_chat3
-        ]
+        animaux = [un_chien,un_chien2,un_chien3,un_chat,un_chat2,un_chat3]
+
     while True:
         afficher_map(animaux)
 
         print("\n=== MENU PRINCIPAL ===")
         print("1. Lancer un tour")
         print("2. Afficher état des animaux")
-        print("0. Quitter")
+        print("0. Quitter\n")
 
-        choix = input("Choix: ")
+        choix = input("Choix : ")
 
         if choix == "1":
             tour_par_tour(animaux)
@@ -489,73 +484,127 @@ def menu_principal(animaux):
 
         elif choix == "0":
             sauvegarder_partie(animaux)
-            print("Fin de la simulation 👋")
+            print("Fin de la partie 👋\n")
             break
 
         else:
             print("Choix invalide")
 
 def menu_animal(animal, liste_animaux):
+    if animal.a_joue:
+        print(f"⏳ Tu as déjà joué ce tour {animal.nom} \n")
+        return 
     while True:
-        if animal.a_joue:
-            print("⏳ Tu as déjà joué ce tour.")
-            return
         afficher_map(liste_animaux)
-        print("\n=== MENU ===")
+        print("\n=== Action ===")
         print(f"1. Manger")
         print(f"2. Dormir")
-        print(f"3. Soigner")
-        print(f"4. Vieillir")
-        print(f"5. S'entraîner")
-        print(f"6. Se déplacer")
-        print(f"7. Marquer territoire")
-        print(f"8. Interagir avec un autre animal")
+        print(f"3. Soigner ses blessures")
+        print(f"4. S'entraîner")
+        print(f"5. Se déplacer")
+        print(f"6. Marquer son territoire")
+        print(f"7. Interagir avec un autre animal")
+        print(f"8. Reproduire avec un autre animal")
         print(f"9. Afficher infos")
-        print(f"0. Quitter")
+        print(f"0. Quitter\n")
 
-        choix = input("Choisis une option: ")
+        choix = input(f"Que veux-tu faire avec {animal.nom} : ")
 
         if choix == "1":
             animal.manger()
             animal.a_joue = True
+            break
+
         elif choix == "2":
             animal.dormir()
             animal.a_joue = True
+            break
+
         elif choix == "3":
             animal.soigner()
             animal.a_joue = True
+            break
+
         elif choix == "4":
-            animal.vieillir()
-            animal.a_joue = True
+            comp = input(f"Quelle compétence veux-tu entraîner {list(animal.competences.keys())} ? ").lower()
+            if comp in animal.competences:
+                h = int(input("Combien d'heures d'entraînement? "))
+                animal.entrainer(comp, h)
+            animal.a_joue = True                
+            break
+
         elif choix == "5":
-            comp = input(f"Quelle compétence entraîner {list(animal.competences.keys())}? ")
-            h = int(input("Combien d'heures d'entraînement? "))
-            animal.entrainer(comp, h)
-            animal.a_joue = True
-        elif choix == "6":
-            x = int(input("Nouvelle position x: "))
-            y = int(input("Nouvelle position y: "))
+            print("Choix du déplacement :")
+            print("1. Déplacement absolu (saisir la position x,y)")
+            print("2. Déplacement relatif (ex : +2 sur x, -1 sur y)")
+            sous_choix = input("Option : ")
+
+            if sous_choix == "1":
+
+                x = int(input("Nouvelle position x : "))
+                y = int(input("Nouvelle position y : "))
+            elif sous_choix == "2":
+                
+                dx = int(input("Déplacement relatif sur x (ex: 2 ou -1) : "))
+                dy = int(input("Déplacement relatif sur y (ex: 1 ou -1) : "))
+                x = animal.position[0] + dx
+                y = animal.position[1] + dy
+            else:
+                print("Option invalide\n")
+                continue
+
             animal.se_deplacer(x, y)
             animal.a_joue = True
-        elif choix == "7":
+            break
+
+        elif choix == "6":
             animal.marquer_territoire()
             animal.a_joue = True
-        elif choix == "8":
-            print("Animaux disponibles: ", [a.nom for a in liste_animaux if a != animal])
-            cible = input("Nom de l'animal pour interagir: ")
-            cible_animal = next((a for a in liste_animaux if a.nom == cible), None)
-            if cible_animal:
-                animal.interagir(cible_animal)
-            else:
-                print("Animal introuvable")
+            break
+
+        elif choix == "7":
+            disponibles = [a for a in liste_animaux if a != animal]
+            if not disponibles:
+                print("\nAucun partenaire disponible pour s'amuser\n")
+            else:            
+                print("Animaux disponibles pour jouer : ", [a.nom for a in disponibles], "\n")
+                cible = input("Nom de l'animal pour interagir : ").lower()
+                cible_animal = next((a for a in liste_animaux if a.nom.lower() == cible), None)
+                if cible_animal:
+                    animal.interagir(cible_animal)
+                else:
+                    print("Animal introuvable\n")
             animal.a_joue = True
+            break
+
+        elif choix == "8":
+            disponibles = [a for a in liste_animaux if a != animal and a.espece == animal.espece]
+            if not disponibles:
+                print("\nAucun partenaire disponible pour reproduction\n")
+            else:
+                print("Animaux disponibles pour reproduction :", [a.nom for a in disponibles], "\n")
+                cible_nom = input("Nom de l'animal pour se reproduire : ")
+                partenaire = next((a for a in disponibles if a.nom.lower() == cible_nom.lower()), None)
+                if partenaire:
+                    bebe = animal.reproduire(partenaire)
+                    if bebe:
+                        liste_animaux.append(bebe)
+                        print(f"\n🎉 {animal.nom} et {partenaire.nom} ont eu un bébé : {bebe.nom} ({bebe.espece})\n")
+                    else:
+                        print("\nReproduction impossible (âge, sexe, ennemis ou espèce différente)\n")
+                else:
+                    print("\nAnimal introuvable ou incompatible.")
+            animal.a_joue = True
+            break
+
         elif choix == "9":
             print(animal)
+          
         elif choix == "0":
-            print(f"🔁 Fin du tour de {animal.nom}")
+            print(f"\n=== Fin du tour de {animal.nom} ===\n")
             break
         else:
-            print("Choix invalide")
+            print("Choix invalide\n")
 
 def animal_from_dict(data):
     if data["type"] == "Chien":
@@ -597,6 +646,12 @@ def animal_from_dict(data):
 
     return a
 
+def restaurer_liens(animaux):
+    nom_to_animal = {a.nom: a for a in animaux}
+    for a in animaux:
+        a.amis = [nom_to_animal[n] for n in getattr(a, "amis", []) if n in nom_to_animal]
+        a.ennemis = [nom_to_animal[n] for n in getattr(a, "ennemis", []) if n in nom_to_animal]
+
 def sauvegarder_partie(animaux):
     data = {
     "tour": tour_actuel,
@@ -604,13 +659,7 @@ def sauvegarder_partie(animaux):
 }
     with open(SAVE_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
-    print("💾 Partie sauvegardée")
-
-def restaurer_liens(animaux):
-    nom_to_animal = {a.nom: a for a in animaux}
-    for a in animaux:
-        a.amis = [nom_to_animal[n] for n in getattr(a, "amis", []) if n in nom_to_animal]
-        a.ennemis = [nom_to_animal[n] for n in getattr(a, "ennemis", []) if n in nom_to_animal]
+    print("\n💾 Partie sauvegardée avec succès !\n")
 
 def charger_partie():
     global tour_actuel
@@ -622,7 +671,8 @@ def charger_partie():
 
     tour_actuel = data.get("tour", 1)
     animaux = [animal_from_dict(d) for d in data["animaux"]]
-    print("📂 Partie chargée")
+    restaurer_liens(animaux)
+    print("\n📂 Partie chargée avec succès !\n")
     return animaux
 
 if __name__ == "__main__":
@@ -630,7 +680,7 @@ if __name__ == "__main__":
     animaux = charger_partie()
 
     if animaux is None:
-        print("🆕 Aucune sauvegarde trouvée — nouvelle partie")
+        print("\n🆕 Aucune sauvegarde trouvée — nouvelle partie\n")
         
         un_chien = Chien("Fido", 5, "M", "Golden Retrieve", position=(0,1))
         un_chien2 = Chien("Roa", 4, "F", "Rottweiler", position=(3,5))
@@ -639,15 +689,9 @@ if __name__ == "__main__":
         un_chat2 = Chat("Fleur", 4, "F", "noir", position=(8,5))
         un_chat3 = Chat("Jack", 6, "M", "blanc")
 
-        animaux = [
-            un_chien,
-            un_chien2,
-            un_chien3,
-            un_chat,
-            un_chat2,
-            un_chat3
-        ]
+        animaux = [un_chien,un_chien2,un_chien3,un_chat,un_chat2,un_chat3]
+
     else:
-        print("🔁 Sauvegarde détectée — reprise de la partie")
+        print("\n🔁 Sauvegarde détectée — reprise de la partie\n")
 
     menu_principal(animaux)
